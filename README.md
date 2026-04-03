@@ -1,11 +1,11 @@
 ### A MongoDB-based backend project for HR Management System. 
 
 This project demonstrates how to use collections, schema validation, and CRUD operations for managing employees, departments, and attendance records.
----
+
 
 ### Project Overview:
 
-This application manages three components:
+This project can help in managing three components:
 
 * **Employees** – Staff working in the organization  
 * **Departments** – Organizational units like HR, IT, Finance  
@@ -13,7 +13,7 @@ This application manages three components:
 
 MongoDB is used with schema validation to ensure consistent and reliable HR data.
 
----
+
 
 ### Database Setup:
 
@@ -22,10 +22,10 @@ use hrDB
 ```
 Creates or switches to the hrDB database.
 
-Collections and Schema Design
-1. Employees Collection
+### Collections and Schema Design
+### 1. Employees Collection
    
-Create Collection
+### Create Collection
 
 ```js
 db.createCollection("employees", {
@@ -43,7 +43,7 @@ db.createCollection("employees", {
   }
 })
 ```
-Example Insert
+### Example Insert
 ```js
 db.employees.insertOne({
   empId: "EMP101",
@@ -59,7 +59,7 @@ db.employees.insertOne({
   salary: 30000
 })
 ```
-2. Departments Collection
+### 2. Departments Collection
    
 Create Collection with Advanced Validation
 ```js
@@ -89,7 +89,7 @@ db.createCollection("departments", {
 })
 ```
 
-Valid Insert
+### Valid Insert
 ```js
 db.departments.insertOne({
   deptId: "DPT101",
@@ -98,7 +98,7 @@ db.departments.insertOne({
 })
 ```
 
-Invalid Insert (Fails)
+### Invalid Insert (Fails)
 ```js
 db.departments.insertOne({
   deptId: "101",
@@ -106,13 +106,13 @@ db.departments.insertOne({
   budget: 5000
 })
 ```
-3. Attendance Collection
+### 3. Attendance Collection
    
-Create Collection
+### Create Collection
 ```js
 db.createCollection("attendance")
 ```
-Add Validation using collMod
+### Add Validation using collMod
 ```js
 db.runCommand({
   collMod: "attendance",
@@ -137,8 +137,8 @@ db.runCommand({
   validationLevel: "moderate"
 })
 ```
-CRUD Operations
-Create
+### CRUD Operations
+### Create
 ```js
 db.employees.insertOne({
   empId: "EMP201",
@@ -148,37 +148,37 @@ db.employees.insertOne({
   isActive: true
 })
 ```
-Read
+### Read
 ```js
 db.employees.find()
 db.employees.find({ salary: { $gt: 40000 } })
 ```
-Update
+### Update
 ```js
 db.employees.updateOne(
   { empId: "EMP201" },
   { $set: { salary: 48000 } }
 )
 ```
-Delete
+### Delete
 ```js
 db.employees.deleteOne({ empId: "EMP201" })
 ```
-Utility Commands
-Show Collections
+### Utility Commands
+### Show Collections
 ```js
 shows collection
 ```
-Drop Collection
+### Drop Collection
 ```js
 db.employees.drop()
 ```
-Get Collection Info
+### Get Collection Info
 ```js
 db.getCollectionInfos({ name: "departments" })
 ```
 
-Key Features
+### Key Features
 * Schema validation using '$jsonSchema'
 * Required fields enforcement
 * Pattern-based ID validation (EMPxxx, DPTxxx)
@@ -186,12 +186,12 @@ Key Features
 * Data consistency and error prevention
 * Efficient HR data management
 
-Use Cases
+### Use Cases
 * Employee record management
 * Department tracking systems
 * Attendance monitoring systems
 * Payroll data preparation
   
-Conclusion
+### Conclusion
 
 This project demonstrates how MongoDB can be used to build a structured HR Management System. By applying schema validation and CRUD operations, the system ensures data integrity, consistency, and efficient management of employee-related data.
