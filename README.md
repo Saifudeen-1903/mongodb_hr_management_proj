@@ -204,6 +204,7 @@ budget: 5000
 ```
 
 🔹 O/P
+
 Valid insert succeeds.
 Invalid insert fails.
 
