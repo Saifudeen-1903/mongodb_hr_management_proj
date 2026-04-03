@@ -208,6 +208,7 @@ Valid insert succeeds.
 Invalid insert fails.
 
 🔹 Result
+
 Advanced validation rules were successfully applied.
 
 --- 
@@ -278,4 +279,5 @@ enum values
 pattern rules
 
 🔹 Result
+
 Validation rules were successfully viewed and verified.
