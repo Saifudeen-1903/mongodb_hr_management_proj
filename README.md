@@ -178,20 +178,6 @@ db.employees.drop()
 db.getCollectionInfos({ name: "departments" })
 ```
 
-### Key Features
-* Schema validation using '$jsonSchema'
-* Required fields enforcement
-* Pattern-based ID validation (EMPxxx, DPTxxx)
-* Enum constraints for departments
-* Data consistency and error prevention
-* Efficient HR data management
-
-### Use Cases
-* Employee record management
-* Department tracking systems
-* Attendance monitoring systems
-* Payroll data preparation
-  
 ### Conclusion
 
-This project demonstrates how MongoDB can be used to build a structured HR Management System. By applying schema validation and CRUD operations, the system ensures data integrity, consistency, and efficient management of employee-related data.
+This project helps in understanding how MongoDB can be used to build a structured HR Management System. By applying schema validation and CRUD operations, the system ensures data integrity, consistency, and efficient management of employee-related data.
