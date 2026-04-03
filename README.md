@@ -2,4 +2,4 @@
 
 ___
 
-Mongodb experiments for HR Management system
+Mongodb backend project for HR Management system
