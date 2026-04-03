@@ -1,5 +1,281 @@
-### HR MANAGEMENT SYSTEM
+  ## HR MANAGEMENT SYSTEM
 
-___
+### EXPERIMENT – 1
+### (CRUD Operations)
 
-Mongodb backend project for HR Management system
+🔹 Aim
+
+To perform Create, Read, Update, and Delete operations.
+
+🔹 Query
+```js
+use hrDB
+```
+
+-- CREATE
+```js
+db.employees.insertOne({
+empId: "EMP101",
+name: "Ravi Kumar",
+department: "HR",
+salary: 40000,
+isActive: true
+})
+
+db.employees.insertMany([
+{
+empId: "EMP102",
+name: "Anita Sharma",
+department: "IT",
+salary: 60000,
+isActive: true
+},
+{
+empId: "EMP103",
+name: "Vikram Singh",
+department: "Finance",
+salary: 50000,
+isActive: false
+}
+])
+```
+
+-- READ
+```js
+db.employees.find()
+db.employees.find({ salary: { $gt: 45000 } })
+```
+-- UPDATE
+```js
+db.employees.updateOne(
+{ empId: "EMP101" },
+{ $set: { salary: 45000 } }
+)
+
+db.employees.updateMany(
+{ isActive: true },
+{ $set: { status: "Active" } }
+)
+```
+
+-- DELETE
+```js
+db.employees.deleteOne({ empId: "EMP103" })
+db.employees.deleteMany({ isActive: false })
+```
+🔹 O/P
+
+Documents inserted, retrieved, updated, and deleted successfully.
+
+🔹 Result
+
+CRUD operations were successfully performed.
+
+---
+
+### EXPERIMENT – 2
+### (Basic Collection Creation & Dropping)
+
+🔹 Aim
+
+To create, display and drop a collection without constraints.
+
+🔹 Query
+```js
+use hrDB
+
+db.createCollection("employees")
+
+show collections
+
+db.employees.drop()
+```
+
+🔹 O/P
+
+Collection created, displayed, and dropped successfully.
+
+🔹 Result
+
+The employees collection was successfully created and dropped.
+
+---
+
+### EXPERIMENT – 3
+### (Collection with Required Fields & Data Types)
+
+🔹 Aim
+
+To enforce required fields using schema validation.
+
+🔹 Query
+```js
+db.createCollection("employees", {
+validator: {
+$jsonSchema: {
+bsonType: "object",
+required: ["empId", "name", "salary"],
+properties: {
+empId: { bsonType: "string" },
+name: { bsonType: "string" },
+salary: { bsonType: "int" },
+isActive: { bsonType: "bool" }
+}
+}
+}
+})
+```
+🔹 Valid Insert
+```js
+db.employees.insertOne({
+empId: "EMP201",
+name: "Kiran",
+salary: 35000,
+isActive: true
+})
+```
+🔹 Invalid Insert
+```js
+db.employees.insertOne({
+empId: "EMP202",
+salary: 30000
+})
+```
+🔹 O/P
+
+Valid insert succeeds.
+Invalid insert fails with validation error.
+
+🔹 Result
+
+Schema validation enforced required fields.
+
+--- 
+
+### EXPERIMENT – 4
+### (Advanced Validation – Enum, Range, Pattern)
+
+🔹 Aim
+
+To apply advanced validation rules.
+
+🔹 Query
+```js
+db.createCollection("departments", {
+validator: {
+$jsonSchema: {
+bsonType: "object",
+required: ["deptId", "deptName", "budget"],
+properties: {
+deptId: {
+bsonType: "string",
+pattern: "^DPT[0-9]{3}$"
+},
+deptName: {
+enum: ["HR", "IT", "Finance", "Sales"]
+},
+budget: {
+bsonType: "number",
+minimum: 10000,
+maximum: 1000000
+}
+}
+}
+},
+validationLevel: "strict",
+validationAction: "error"
+})
+```
+🔹 Valid Insert
+```js
+db.departments.insertOne({
+deptId: "DPT101",
+deptName: "IT",
+budget: 500000
+})
+```
+🔹 Invalid Insert
+```js
+db.departments.insertOne({
+deptId: "101",
+deptName: "Admin",
+budget: 5000
+})
+```
+
+🔹 O/P
+Valid insert succeeds.
+Invalid insert fails.
+
+🔹 Result
+Advanced validation rules were successfully applied.
+
+--- 
+
+### EXPERIMENT – 5
+### (Modify Validation on Existing Collection)
+
+🔹 Aim
+
+To add validation rules to an existing collection.
+
+🔹 Query
+```js
+db.createCollection("attendance")
+
+db.runCommand({
+collMod: "attendance",
+validator: {
+$jsonSchema: {
+bsonType: "object",
+required: ["empId", "date", "status"],
+properties: {
+empId: {
+bsonType: "string",
+pattern: "^EMP[0-9]{3}$"
+},
+date: {
+bsonType: "string"
+},
+status: {
+enum: ["Present", "Absent", "Leave"]
+}
+}
+}
+},
+validationLevel: "moderate"
+})
+```
+
+🔹 O/P
+```js
+{ ok: 1 }
+```
+
+🔹 Result
+
+Validation rules were successfully modified.
+
+---
+
+### EXPERIMENT – 6
+### (View & Verify Validation Rules)
+
+🔹 Aim
+
+To view validation rules applied to a collection.
+
+🔹 Query
+```js
+db.getCollectionInfos({ name: "departments" })
+```
+
+🔹 O/P
+
+Displays validation schema including:
+required fields
+enum values
+pattern rules
+
+🔹 Result
+Validation rules were successfully viewed and verified.
